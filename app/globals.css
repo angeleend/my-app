@@ -1,26 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* --background: #ffb6c1;
+  --foreground: #3a0a0f; */
+  --magnolia: #f5efe2; /* parchment */
+  --night: #131217; /* ink */
+  --clarnet: #9E1946; /* deep maroon for accents */
+  --pink: #d89ab0;
+  --pistachio: #9E7682;
+  /* mapped theme variables (previously in @theme) */
+  --color-background: var(--magnolia);
+  --color-foreground: var(--night);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-accent-primary: var(--clarnet);
+  --color-accent-secondary: var(--pistachio);
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--night);
+    --foreground: var(--magnolia);
+    --color-accent-primary: var(--pink); 
+    --color-accent-secondary: var(--pistachio);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--magnolia);
+  color: var(--color-foreground);
+  font-family: var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  font-size: 18px; /* make base text larger for a bolder presence */
+}
+
+/* tone down modern interactive elements: make buttons simple links */
+.btn, .button-like {
+  background: transparent;
+  border: none;
+  color: var(--clarnet);
+  text-decoration: underline;
+  padding: 0;
+  font-weight: 600;
+}
+
+/* make headings feel typographic and classic */
+h1, h2, h3 { color: var(--night); }
+h1 { font-size: 2.4rem; letter-spacing: -0.02em; }
+h2 { font-size: 1.25rem; margin-top: 0.6rem; }
+
+/* NavBar styles */
+/* Elegant single vertical navigation (fixed left) */
+.site-nav {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  background: transparent;
+  padding: 6px 8px;
+  font-family: var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  align-items: flex-start;
+}
+
+.site-nav .nav-link {
+  display: inline-block;
+  color: rgba(10,10,10,0.88);
+  padding: 8px 6px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: color 180ms ease, transform 180ms ease;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  position: relative;
+}
+
+.site-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -4px;
+  height: 2px;
+  background: transparent;
+  transition: background-color 180ms ease, transform 180ms ease;
+  border-radius: 2px;
+}
+.site-nav .nav-link:hover {
+  color: rgba(10,10,10,0.95);
+  transform: translateX(2px);
+}
+.site-nav .nav-link.active {
+  color: var(--clarnet);
+}
+.site-nav .nav-link.active::after {
+  background: var(--clarnet);
+}
+
+/* responsive: collapse to top bar on small screens */
+@media (max-width: 640px) {
+  /* collapse fixed left nav into a top bar on small screens */
+  .site-nav {
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+    display: block;
+    width: 100%;
+    padding: 10px 18px;
+    background: transparent;
+  }
+  .site-nav ul { flex-direction: row; justify-content: center; gap: 12px; }
+}
+
+/* Page container used by new pages */
+.page-container {
+  padding: 32px 20px;
+  max-width: 900px;
+  margin: 32px auto;
+}
+
+/* Projects grid (picture-like cards) */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.project-card {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  min-height: 160px;
+  background: #eee;
+  text-decoration: none;
+  color: inherit;
+}
+.project-card .project-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: contrast(0.95) saturate(0.95) brightness(0.96);
+  transition: transform 280ms ease, filter 280ms ease;
+  height: 220px;
+}
+.project-card .project-overlay {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.project-card .project-title { font-weight: 700; font-size: 1.05rem; }
+.project-card .project-sub { font-size: 0.9rem; opacity: 0.9; }
+.project-card:hover .project-image { transform: scale(1.04); filter: contrast(1.02) saturate(1.05) brightness(1); }
+.project-card:hover { box-shadow: 0 8px 24px rgba(10,10,10,0.08); transform: translateY(-4px); transition: transform 220ms ease, box-shadow 220ms ease; }
+
+@media (max-width: 980px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card .project-image { height: 160px; }
+}
+
+.theme {
+  --base-size: 18px;
+  font-size: var(--base-size);
+  line-height: 1.8;
+  background: #fff;
+  color: #0b0b0b;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.hero { padding: 120px 28px; }
+.hero .title { font-size: 4.25rem; line-height: 1; font-weight: 700; margin: 0; font-family: 'Monsieur La Doulaise', var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.hero .subtitle { font-size: 1.25rem; margin-top: 18px; color: rgba(0,0,0,0.62); max-width: 72ch; }
+
+.theme .site-nav--corner { right: 40px; top: 40px; }
+.theme .site-nav--corner .nav-link { font-size: 1.1rem; padding: 10px 12px; }
+
+@media (max-width: 768px) {
+  .o { padding: 56px 18px; }
+  .title { font-size: 2rem; }
+  .theme { font-size: 16px; }
+  .theme .site-nav--corner { right: 16px; top: 12px; }
+  .theme .site-nav--corner .nav-link { font-size: 0.95rem; padding: 8px 8px; }
 }
