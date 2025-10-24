@@ -1,42 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* --background: #ffb6c1;
-  --foreground: #3a0a0f; */
-  --magnolia: #f5efe2; /* parchment */
-  --night: #131217; /* ink */
-  --clarnet: #9E1946; /* deep maroon for accents */
-  --pink: #d89ab0;
-  --pistachio: #9E7682;
+  --parchment: #f5efe2; 
+  --night: #131217; 
+  --clarnet: #9E1946; 
+  --turquoise: #048A81;
+  --blue: #00798C;
+  --font-base: 'Cormorant Garamond', serif;
+
   /* mapped theme variables (previously in @theme) */
-  --color-background: var(--magnolia);
+  --color-background: var(--parchment);
   --color-foreground: var(--night);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-accent-primary: var(--clarnet);
-  --color-accent-secondary: var(--pistachio);
-
+  --site-nav-height: clamp(56px, 6vh, 80px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--night);
-    --foreground: var(--magnolia);
-    --color-accent-primary: var(--pink); 
-    --color-accent-secondary: var(--pistachio);
+    --foreground: var(--parchment);
+    --color-accent-primary: var(--turquoise); 
+    color: var(--parchment);
   }
 }
 
 body {
-  background: var(--magnolia);
+  background: var(--parchment);
   color: var(--color-foreground);
-  font-family: var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-base), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.7;
   letter-spacing: 0.01em;
   font-size: 18px; /* make base text larger for a bolder presence */
+}
+
+/* Prefer smooth scrolling for anchor navigation; JS fallback uses scrollIntoView behavior too */
+html {
+  scroll-behavior: smooth;
+}
+
+/* When focusing anchors, ensure they aren't concealed by the fixed nav (visual offset)
+   We'll use scroll-margin to keep sections visible when jumped to via hash */
+header[id], section[id] {
+  scroll-margin-top: calc(var(--site-nav-height) + 1rem); /* leave space below the fixed top nav */
 }
 
 /* tone down modern interactive elements: make buttons simple links */
@@ -54,36 +65,39 @@ h1, h2, h3 { color: var(--night); }
 h1 { font-size: 2.4rem; letter-spacing: -0.02em; }
 h2 { font-size: 1.25rem; margin-top: 0.6rem; }
 
-/* NavBar styles */
-/* Elegant single vertical navigation (fixed left) */
+/* NavBar styles - top fixed horizontal navigation */
 .site-nav {
   position: fixed;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 60;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   background: transparent;
-  padding: 6px 8px;
+  padding: 2rem;
+  height: var(--site-nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 .site-nav ul {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  gap: clamp(10px, 2vw, 20px);
   margin: 0;
   padding: 0;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .site-nav .nav-link {
   display: inline-block;
   color: rgba(10,10,10,0.88);
-  padding: 8px 6px;
+  padding: 6px 10px;
   border-radius: 2px;
   text-decoration: none;
   transition: color 180ms ease, transform 180ms ease;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
   letter-spacing: 0.02em;
   font-weight: 600;
   position: relative;
@@ -92,9 +106,9 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
 .site-nav .nav-link::after {
   content: "";
   position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: -4px;
+  left: 6px;
+  right: 6px;
+  bottom: -6px;
   height: 2px;
   background: transparent;
   transition: background-color 180ms ease, transform 180ms ease;
@@ -102,7 +116,7 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
 }
 .site-nav .nav-link:hover {
   color: rgba(10,10,10,0.95);
-  transform: translateX(2px);
+  transform: translateY(-1px);
 }
 .site-nav .nav-link.active {
   color: var(--clarnet);
@@ -111,87 +125,122 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
   background: var(--clarnet);
 }
 
-/* responsive: collapse to top bar on small screens */
-@media (max-width: 640px) {
-  /* collapse fixed left nav into a top bar on small screens */
-  .site-nav {
-    position: static;
-    transform: none;
-    left: auto;
-    top: auto;
-    display: block;
-    width: 100%;
-    padding: 10px 18px;
-    background: transparent;
-  }
-  .site-nav ul { flex-direction: row; justify-content: center; gap: 12px; }
+/* For very small screens, slightly reduce nav height and spacing */
+@media (max-width: 420px) {
+  .site-nav { height: clamp(44px, 7vh, 56px); padding: 6px 12px; }
+  .site-nav .nav-link { padding: 6px 8px; font-size: 0.95rem; }
 }
+
+/* Ensure main content sits below the fixed top nav */
+body { padding-top: var(--site-nav-height); }
+
+/* Layout inner wrapper for brand left / nav right */
+.site-nav .nav-inner {
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-nav .nav-brand .brand {
+  font-weight: 700;
+}
+.site-nav .nav-brand .nav-link.brand {
+  font-family: 'Monsieur La Doulaise', var(--font-inter);
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  color: rgba(10,10,10,0.95);
+  padding: 4px 6px;
+}
+.site-nav .nav-list { display: flex; gap: clamp(10px, 2vw, 20px); align-items: center; }
+.site-nav .nav-list li { list-style: none; }
 
 /* Page container used by new pages */
 .page-container {
   padding: 32px 20px;
-  max-width: 900px;
-  margin: 32px auto;
+  margin: 32px 0;
 }
 
 /* Projects grid (picture-like cards) */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 28rem), 1fr));
+  gap: clamp(12px, 1.6vw, 22px);
 }
 .project-card {
   display: block;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  min-height: 160px;
-  background: #eee;
+  background: var(--night);
   text-decoration: none;
   color: inherit;
+  aspect-ratio: 16 / 10;
 }
-.project-card .project-image {
+.project-figure {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+}
+.project-figure .project-image,
+.project-card .project-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
   filter: contrast(0.95) saturate(0.95) brightness(0.96);
   transition: transform 280ms ease, filter 280ms ease;
-  height: 220px;
 }
 .project-card .project-overlay {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  padding: 14px 16px;
+  padding: clamp(10px, 1.2vw, 18px) clamp(12px, 2vw, 20px);
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
-  color: #fff;
+  color: var(--parchment);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.project-card .project-title { font-weight: 700; font-size: 1.05rem; }
-.project-card .project-sub { font-size: 0.9rem; opacity: 0.9; }
+/* project action buttons */
+.project-actions { display: flex; gap: 8px; margin-top: 8px; }
+.action-btn {
+  background: rgba(255,255,255,0.08);
+  color: var(--parchment);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 160ms ease, transform 120ms ease;
+}
+.action-btn:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+/* About photo placeholder */
+.photo-placeholder { width: 120px; height: 120px; flex: 0 0 120px; border-radius: 12px; overflow: hidden; }
+.photo-placeholder svg { display: block; width: 100%; height: 100%; }
+
+/* Interactive gallery */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; }
+.gallery-item { background: transparent; border: none; padding: 0; cursor: pointer; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.gallery-item .gallery-svg { width: 100%; height: auto; border-radius: 6px; }
+.gallery-caption { text-align: center; font-size: 0.9rem; color: var(--night); }
+.project-card .project-title { font-weight: 700; font-size: clamp(0.98rem, 1.6vw, 1.12rem); }
+.project-card .project-sub { font-size: clamp(0.82rem, 1.1vw, 0.98rem); opacity: 0.95; }
 .project-card:hover .project-image { transform: scale(1.04); filter: contrast(1.02) saturate(1.05) brightness(1); }
 .project-card:hover { box-shadow: 0 8px 24px rgba(10,10,10,0.08); transform: translateY(-4px); transition: transform 220ms ease, box-shadow 220ms ease; }
 
-@media (max-width: 980px) {
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 640px) {
   .projects-grid { grid-template-columns: 1fr; }
-  .project-card .project-image { height: 160px; }
 }
 
 .theme {
   --base-size: 18px;
   font-size: var(--base-size);
   line-height: 1.8;
-  background: #fff;
-  color: #0b0b0b;
+  background: var(--parchment);
+  color: var(--night);
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-.hero { padding: 120px 28px; }
+.hero { padding: 120px 28px;}
 .hero .title { font-size: 4.25rem; line-height: 1; font-weight: 700; margin: 0; font-family: 'Monsieur La Doulaise', var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
 .hero .subtitle { font-size: 1.25rem; margin-top: 18px; color: rgba(0,0,0,0.62); max-width: 72ch; }
 
