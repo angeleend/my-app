@@ -1,20 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700&family=Inter:wght@300;400;600;700&family=Karla:wght@300;400;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --parchment: #f5efe2; 
+  --white: #EFEFEF; 
   --night: #131217; 
   --clarnet: #9E1946; 
   --turquoise: #048A81;
   --blue: #00798C;
-  --font-base: 'Cormorant Garamond', serif;
+  --font-heading: 'Syne', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
+  --font-sub: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-body: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 
   /* mapped theme variables (previously in @theme) */
-  --color-background: var(--parchment);
+  --color-background: var(--white);
   --color-foreground: var(--night);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-accent-primary: var(--clarnet);
   --site-nav-height: clamp(56px, 6vh, 80px);
 }
@@ -22,21 +21,20 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: var(--night);
-    --foreground: var(--parchment);
+    --foreground: var(--white);
     --color-accent-primary: var(--turquoise); 
-    color: var(--parchment);
+    color: var(--white);
   }
 }
 
 body {
-  background: var(--parchment);
-  color: var(--color-foreground);
-  font-family: var(--font-base), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--white);
+  color: var(--night);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.7;
   letter-spacing: 0.01em;
-  font-size: 18px; /* make base text larger for a bolder presence */
 }
 
 /* Prefer smooth scrolling for anchor navigation; JS fallback uses scrollIntoView behavior too */
@@ -63,7 +61,8 @@ header[id], section[id] {
 /* make headings feel typographic and classic */
 h1, h2, h3 { color: var(--night); }
 h1 { font-size: 2.4rem; letter-spacing: -0.02em; }
-h2 { font-size: 1.25rem; margin-top: 0.6rem; }
+h2 { font-size: 1.7vw; margin-top: 0.6rem; }
+h2, h3, h4, h5, h6 {font-family: var(--font-sub); }
 
 /* NavBar styles - top fixed horizontal navigation */
 .site-nav {
@@ -72,14 +71,15 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
   left: 0;
   right: 0;
   z-index: 1000;
-  background: transparent;
+  background: var(--white);
   padding: 2rem;
   height: var(--site-nav-height);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-sub), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
+
 .site-nav ul {
   list-style: none;
   display: flex;
@@ -92,7 +92,7 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
 
 .site-nav .nav-link {
   display: inline-block;
-  color: rgba(10,10,10,0.88);
+  color: var(--night);
   padding: 6px 10px;
   border-radius: 2px;
   text-decoration: none;
@@ -103,19 +103,8 @@ h2 { font-size: 1.25rem; margin-top: 0.6rem; }
   position: relative;
 }
 
-.site-nav .nav-link::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  bottom: -6px;
-  height: 2px;
-  background: transparent;
-  transition: background-color 180ms ease, transform 180ms ease;
-  border-radius: 2px;
-}
 .site-nav .nav-link:hover {
-  color: rgba(10,10,10,0.95);
+  color: var(--clarnet);
   transform: translateY(-1px);
 }
 .site-nav .nav-link.active {
@@ -146,9 +135,9 @@ body { padding-top: var(--site-nav-height); }
   font-weight: 700;
 }
 .site-nav .nav-brand .nav-link.brand {
-  font-family: 'Monsieur La Doulaise', var(--font-inter);
-  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
-  color: rgba(10,10,10,0.95);
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2.4vw, 1.8rem);
+  color: var(--night);
   padding: 4px 6px;
 }
 .site-nav .nav-list { display: flex; gap: clamp(10px, 2vw, 20px); align-items: center; }
@@ -166,6 +155,24 @@ body { padding-top: var(--site-nav-height); }
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 28rem), 1fr));
   gap: clamp(12px, 1.6vw, 22px);
 }
+/* Featured project styles */
+.featured-card {
+  display: flex;
+  gap: clamp(18px, 3vw, 28px);
+  align-items: stretch;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.04));
+  padding: clamp(12px, 1.2vw, 20px);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.featured-figure { position: relative; flex: 1 1 55%; min-height: 220px; border-radius: 8px; overflow: hidden; background: #e6e6e6; }
+.featured-content { flex: 1 1 45%; display: flex; flex-direction: column; justify-content: center; }
+.featured-content .project-title { font-size: clamp(1.4rem, 2.6vw, 2rem); font-family: var(--font-heading); color: var(--night); }
+.featured-content .project-sub { color: rgba(0,0,0,0.7); margin-top: 8px; }
+@media (max-width: 780px) {
+  .featured-card { flex-direction: column; }
+  .featured-figure { flex-basis: auto; min-height: 160px; }
+}
 .project-card {
   display: block;
   position: relative;
@@ -182,46 +189,35 @@ body { padding-top: var(--site-nav-height); }
   height: 100%;
   overflow: hidden;
 }
+.figure-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  z-index: 0;
+}
 .project-figure .project-image,
-.project-card .project-image {
+.project-card .project-image,
+.featured-figure .project-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
   filter: contrast(0.95) saturate(0.95) brightness(0.96);
   transition: transform 280ms ease, filter 280ms ease;
+  z-index: 1;
 }
 .project-card .project-overlay {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   padding: clamp(10px, 1.2vw, 18px) clamp(12px, 2vw, 20px);
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
-  color: var(--parchment);
+  color: var(--white);
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-/* project action buttons */
-.project-actions { display: flex; gap: 8px; margin-top: 8px; }
-.action-btn {
-  background: rgba(255,255,255,0.08);
-  color: var(--parchment);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 160ms ease, transform 120ms ease;
-}
-.action-btn:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
-
-/* About photo placeholder */
-.photo-placeholder { width: 120px; height: 120px; flex: 0 0 120px; border-radius: 12px; overflow: hidden; }
-.photo-placeholder svg { display: block; width: 100%; height: 100%; }
-
-/* Interactive gallery */
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; }
-.gallery-item { background: transparent; border: none; padding: 0; cursor: pointer; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
-.gallery-item .gallery-svg { width: 100%; height: auto; border-radius: 6px; }
-.gallery-caption { text-align: center; font-size: 0.9rem; color: var(--night); }
 .project-card .project-title { font-weight: 700; font-size: clamp(0.98rem, 1.6vw, 1.12rem); }
 .project-card .project-sub { font-size: clamp(0.82rem, 1.1vw, 0.98rem); opacity: 0.95; }
 .project-card:hover .project-image { transform: scale(1.04); filter: contrast(1.02) saturate(1.05) brightness(1); }
@@ -232,17 +228,17 @@ body { padding-top: var(--site-nav-height); }
 }
 
 .theme {
-  --base-size: 18px;
+  --base-size: 1.5vw;
   font-size: var(--base-size);
   line-height: 1.8;
-  background: var(--parchment);
+  background: var(--white);
   color: var(--night);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-sub), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 .hero { padding: 120px 28px;}
-.hero .title { font-size: 4.25rem; line-height: 1; font-weight: 700; margin: 0; font-family: 'Monsieur La Doulaise', var(--font-inter), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-.hero .subtitle { font-size: 1.25rem; margin-top: 18px; color: rgba(0,0,0,0.62); max-width: 72ch; }
+.hero .title { font-size: 4.25rem; line-height: 1; font-weight: 700; margin: 0; font-family: var(--font-heading); }
+.hero .subtitle { font-family: var(--font-sub); font-weight: 600; font-size: 2.25rem; margin-top: 18px; color: var(--night); max-width: 72ch; }
 
 .theme .site-nav--corner { right: 40px; top: 40px; }
 .theme .site-nav--corner .nav-link { font-size: 1.1rem; padding: 10px 12px; }
@@ -253,4 +249,24 @@ body { padding-top: var(--site-nav-height); }
   .theme { font-size: 16px; }
   .theme .site-nav--corner { right: 16px; top: 12px; }
   .theme .site-nav--corner .nav-link { font-size: 0.95rem; padding: 8px 8px; }
+}
+
+/* Base styles for elements that will be revealed */
+.reveal-container {
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Start slightly below its final position */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth transition */
+}
+
+/* Class added by RevealOnScroll when element enters viewport */
+.reveal-container.fade-in-up {
+  opacity: 1; /* Become fully visible */
+  transform: translateY(0); /* Move to its final position */
+}
+
+/* You could define other animations too */
+.reveal-container.fade-in {
+  opacity: 1;
+  transform: translateY(0); /* No vertical movement */
+  transition: opacity 0.8s ease-out;
 }
