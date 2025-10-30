@@ -10,15 +10,16 @@
   --clarnet: #9E1946; 
   --turquoise: #048A81;
   --blue: #00798C;
-  --font-heading: 'Syne', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial;
-  --font-sub: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --font-body: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-heading: 'Syne';
+  --font-sub: 'Inter';
+  --font-body: 'Karla';
 
   /* mapped theme variables (previously in @theme) */
   --color-background: var(--white);
   --color-foreground: var(--night);
   --color-accent-primary: var(--clarnet);
   --site-nav-height: clamp(56px, 6vh, 80px);
+  --btn-inner: rgba(255,255,255,0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -78,7 +79,7 @@ h2, h3, h4, h5, h6 { font-family: var(--font-sub); }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-sub), var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-sub);
 }
 
 .site-nav ul {
@@ -100,7 +101,7 @@ h2, h3, h4, h5, h6 { font-family: var(--font-sub); }
   transition: color 180ms ease, transform 180ms ease;
   font-size: clamp(0.95rem, 1.6vw, 1.05rem);
   letter-spacing: 0.02em;
-  font-weight: 600;
+  font-weight: 400;
   position: relative;
 }
 
@@ -118,10 +119,10 @@ h2, h3, h4, h5, h6 { font-family: var(--font-sub); }
   align-items: center;
   justify-content: space-between;
 }
-.site-nav .nav-brand .brand { font-weight: 700; }
+.site-nav .nav-brand .brand { font-weight: 600; }
 .site-nav .nav-brand .nav-link.brand {
-  font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 2.4vw, 1.8rem);
+  font-family: var(--font-sub);
+  font-size: clamp(1.0rem, 2.4vw, 1.5rem);
   color: var(--night);
   padding: 4px 6px;
 }
@@ -281,23 +282,32 @@ body { padding-top: var(--site-nav-height); }
 .btn, .button-like {
   background: transparent;
   border: none;
-  color: var(--clarnet);
+  color: var(--night);
   text-decoration: underline;
   padding: 0;
   font-weight: 600;
 }
 
 .btn-primary {
-  background: var(--clarnet);
+  background: var(--night);
   color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 400;
+  font-size: 1.25rem;
   box-shadow: 0 8px 20px rgba(16,16,16,0.06);
-  display: inline-block;
+  display: inline-flex; /* keep text and icon on the same line */
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,16,16,0.08); }
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(16,16,16,0.08), inset 0 0 0 2px var(--btn-inner);
+}
 
 
 /* ---------------------------------------------------------------------------
@@ -309,7 +319,7 @@ body { padding-top: var(--site-nav-height); }
   line-height: 1.8;
   background: var(--white);
   color: var(--night);
-  font-family: var(--font-sub), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-sub);
 }
 
 .theme .site-nav--corner { right: 40px; top: 40px; }

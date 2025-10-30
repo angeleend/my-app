@@ -9,33 +9,36 @@ export default function Home() {
           <div className="page-container">
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 28, alignItems: 'center' }}>
               <div>
-                <h1 className="title">Angeleen Duong</h1>
+                <h1 className="title">Developer & Designer</h1>
                 <div className="subtitle epigraph">
-                  Developer & Designer
+                  Angeleen Duong
                 </div>
                 <p className="mt-6 max-w-2xl">
-                  Curating a seamless user experience through thoughtful design and innovative solutions.
+                  Curating a seamless user experience through thoughtful human-centered design and innovative solutions.
                 </p>
+                <div style={{ marginTop: 18 }}>
+                  <a href="/resume.pdf" className="btn-primary" target="_blank" rel="noopener noreferrer">
+                      <span style={{ verticalAlign: 'middle' }}>Check out my resume</span>
+                      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" style={{ marginLeft: 8, verticalAlign: 'middle' }}>
+                        <path fill="currentColor" d="M12 3v10.586l3.293-3.293 1.414 1.414L12 17.414 6.293 11.707l1.414-1.414L11 13.586V3h1zM5 19h14v2H5z" />
+                      </svg>
+                  </a>
+                </div>
               </div>
 
               <div style={{ justifySelf: 'end' }}>
-                <figure className="hero-figure" style={{ width: 320, maxWidth: '40vw' }}>
-                  <svg
-                    role="img"
-                    aria-label="Hero placeholder image"
-                    viewBox="0 0 800 800"
-                    width="100%"
-                    style={{ borderRadius: 12, display: 'block' }}
-                    preserveAspectRatio="xMidYMid slice"
-                  >
-                    <rect width="100%" height="100%" fill="#f8fafc" />
-                    <g fill="#e6eef7">
-                      <rect x="48" y="56" width="240" height="160" rx="10" />
-                      <rect x="320" y="80" width="360" height="220" rx="8" />
-                    </g>
-                    <text x="50%" y="88%" fill="#94a3b8" fontSize="20" textAnchor="middle">Hero placeholder</text>
-                  </svg>
-                  <figcaption className="sr-only">Hero placeholder image</figcaption>
+                <figure className="hero-figure" style={{ width: 320, maxWidth: '40vw', borderRadius: '50%', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', width: '100%', paddingTop: '100%' }}>
+                    <Image
+                      src="/me.jpg"
+                      alt="Angeleen Duong"
+                      fill
+                      sizes="(max-width: 640px) 40vw, 320px"
+                      style={{ objectFit: 'cover', borderRadius: '50%' }}
+                      priority
+                    />
+                  </div>
+                  <figcaption className="sr-only">Portrait of Angeleen Duong</figcaption>
                 </figure>
               </div>
             </div>
@@ -80,7 +83,7 @@ export default function Home() {
         {/* === SELECTED PROJECTS SECTION (Reveals Second) === */}
         <RevealOnScroll delay={150}> {/* Added a slight delay for staggered look */}
           <section id="projects" className="page-container -mt-6">
-            <h2 className="text-2xl font-semibold mb-6">Selected Projects</h2>
+            <h2 className="text-2xl font-semibold mb-6">All Projects</h2>
             <div className="projects-grid">
               <article className="project-card" aria-labelledby="proj-buzzfeed">
                 <a href="/projects/buzzfeed">
