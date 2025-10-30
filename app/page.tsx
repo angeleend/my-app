@@ -7,13 +7,38 @@ export default function Home() {
       <header id="home" className="relative">
         <div className="hero relative z-10 py-20 lg:py-28">
           <div className="page-container">
-            <h1 className="title">Developer & Designer</h1>
-            <div className="subtitle epigraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 28, alignItems: 'center' }}>
+              <div>
+                <h1 className="title">Angeleen Duong</h1>
+                <div className="subtitle epigraph">
+                  Developer & Designer
+                </div>
+                <p className="mt-6 max-w-2xl">
+                  Curating a seamless user experience through thoughtful design and innovative solutions.
+                </p>
+              </div>
+
+              <div style={{ justifySelf: 'end' }}>
+                <figure className="hero-figure" style={{ width: 320, maxWidth: '40vw' }}>
+                  <svg
+                    role="img"
+                    aria-label="Hero placeholder image"
+                    viewBox="0 0 800 800"
+                    width="100%"
+                    style={{ borderRadius: 12, display: 'block' }}
+                    preserveAspectRatio="xMidYMid slice"
+                  >
+                    <rect width="100%" height="100%" fill="#f8fafc" />
+                    <g fill="#e6eef7">
+                      <rect x="48" y="56" width="240" height="160" rx="10" />
+                      <rect x="320" y="80" width="360" height="220" rx="8" />
+                    </g>
+                    <text x="50%" y="88%" fill="#94a3b8" fontSize="20" textAnchor="middle">Hero placeholder</text>
+                  </svg>
+                  <figcaption className="sr-only">Hero placeholder image</figcaption>
+                </figure>
+              </div>
             </div>
-            <p className="mt-6 max-w-2xl">
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </p>
           </div>
         </div>
       </header>
@@ -22,12 +47,12 @@ export default function Home() {
         {/* === FEATURED PROJECT SECTION (Reveals First) === */}
         <RevealOnScroll delay={0}>
           <section id="featured" className="page-container -mt-6">
-            <h2 className="text-2xl font-semibold mb-6">Featured Project</h2>
+            {/* <h2 className="text-2xl font-semibold mb-6">Featured Project</h2> */}
             <article className="featured-card" aria-labelledby="feat-aurora">
-              <a href="/projects/aurora" className="card-link">
+              <div className="card-link">
                 <figure className="featured-figure">
                   <Image
-                    src="/images/aurora.jpg"
+                    src="/matcha.png"
                     alt="Aurora featured screenshot"
                     fill
                     className="project-image"
@@ -35,23 +60,19 @@ export default function Home() {
                 </figure>
 
                 <div className="featured-content">
-                  <h3 id="feat-aurora" className="project-title">
+                  <h3 id="feat-matcha" className="project-title">
                     Self-Kiosk for Matcha Maiko
                   </h3>
                   <p className="project-sub">
                     A large interactive dashboard showcasing complex
                     visualizations, realtime updates, and accessible controls.
                   </p>
+                  <div className="featured-actions">
+                    <a className="btn-primary" href="/projects/aurora">Case study</a>
+                  </div>
                 </div>
-              </a>
-              <div className="project-actions" style={{ marginTop: 12 }}>
-                <a className="action-btn" href="#">
-                  Live demo
-                </a>
-                <a className="action-btn" href="#">
-                  Case study
-                </a>
               </div>
+              {/* actions are now inside the featured content */}
             </article>
           </section>
         </RevealOnScroll>
@@ -120,24 +141,8 @@ export default function Home() {
             </div>
           </section>
         </RevealOnScroll>
-        
-        {/* === SKILLS SECTION (Reveals Third) === */}
-        <RevealOnScroll delay={250}>
-          <section id="skills" className="page-container">
-            <h2 className="text-2xl font-semibold mb-4">Skills</h2>
-            <p>
-              React, TypeScript, Design Systems, Accessibility, Performance.
-            </p>
-          </section>
-        </RevealOnScroll>
 
-        {/* === ABOUT SECTION (Reveals Last) === */}
-        <RevealOnScroll delay={350}>
-          <section id="about" className="page-container">
-            <h2 className="text-2xl font-semibold mb-4">About</h2>
-            <p className="max-w-2xl"></p>
-          </section>
-        </RevealOnScroll>
+        {/* About is now a separate page at /about; removed inline About section from home. */}
       </main>
 
       <footer className="border-t border-gray-100 dark:border-gray-800 mt-12 py-6">

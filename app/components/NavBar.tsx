@@ -21,9 +21,8 @@ export default function NavBar() {
   }, []);
 
   const links = [
-    { href: "/#about", label: "About", id: "about" },
-    { href: "/#skills", label: "Skills", id: "skills" },
     { href: "/#projects", label: "Projects", id: "projects" },
+    { href: "/about", label: "About" }
   ];
 
   const base = "site-nav";
@@ -58,19 +57,34 @@ export default function NavBar() {
     <nav className={base} aria-label="Primary navigation">
       <div className="nav-inner">
         <div className="nav-brand">
-          <Link href="/#home" className={pathname === "/" && currentHash === "#home" ? "nav-link brand active" : "nav-link brand"} onClick={(e) => handleHashClick(e as any, "home")}>
+          <Link href="/" className={mounted && pathname === "/" ? "nav-link brand active" : "nav-link brand"}>
             Angeleen Duong
           </Link>
         </div>
         <ul className="nav-list">
           {links.map((l) => {
-            // Only compute active state after mount so server and initial client render match
-            const isActive = mounted && pathname === "/" && currentHash === `#${l.id}`;
+            // If link has an 'id' it's an in-page anchor we treat as active when on the home path with matching hash
+            const isAnchor = Boolean((l as any).id);
+            let isActive = false;
+            if (isAnchor) {
+              isActive = mounted && pathname === "/" && currentHash === `#${(l as any).id}`;
+            } else {
+              // For normal page links, mark active when pathname exactly matches link href
+              isActive = mounted && pathname === l.href;
+            }
+
             return (
               <li key={l.href}>
-                <Link href={l.href} className={isActive ? "nav-link active" : "nav-link"} onClick={(e) => handleHashClick(e as any, l.id)}>
-                  {l.label}
-                </Link>
+                {/* Only attach hash-scroll handler for anchors */}
+                {isAnchor ? (
+                  <Link href={l.href} className={isActive ? "nav-link active" : "nav-link"} onClick={(e) => handleHashClick(e as any, (l as any).id)}>
+                    {l.label}
+                  </Link>
+                ) : (
+                  <Link href={l.href} className={isActive ? "nav-link active" : "nav-link"}>
+                    {l.label}
+                  </Link>
+                )}
               </li>
             );
           })}
